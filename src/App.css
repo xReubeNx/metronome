@@ -17,6 +17,13 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  box-shadow: none;
+  transition: all 0.5s
+}
+
+.flash {
+  box-shadow:0 0 20px 1px white;
+  transition: all 0.05s;
 }
 
 .top {

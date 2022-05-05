@@ -9,21 +9,26 @@ function App() {
   const [tickDelay, setTickDelay] = useState(1000); // base delay 1000ms = 1 sec
   const [ticking, setTicking] = useState(false); // start/stop the metronome
   const [prevClick, setPrevClick] = useState(null); // time of clicked button (for setting tempo)
+  const [flash, setFlash] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(playTick, tickDelay);
 
     return function clear() {
       clearInterval(interval);
-      console.log('cleared interval')
     }
   }, [ticking, tickDelay]);
 
   function playTick() {
     if (ticking) {
-      console.log('tick')
-      play.call()
+      setFlash(true);
+      play.call();
+      setTimeout(flashHandler, tickDelay/5);
     }
+  }
+
+  function flashHandler() {
+    setFlash(false);
   }
 
   function tempoHandler() {
@@ -38,7 +43,7 @@ function App() {
 
   return (
     <div className="wrapper">
-      <div className="container">
+      <div className={`container ${flash && 'flash'}`}>
 
         <div className="top">
           <h1>Metronome</h1>
